@@ -2,9 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Recipe from "./Recipe";
 
-const App = () => {
-  const APP_ID = "10b31185";
-  const APP_KEY = "7c17b438df25db5781b3cdc2089f4d18";
+function App() {
   const [recipes, setRecipes] = useState([]);
   const [search, setSearch] = useState("");
   const [query, setQuery] = useState("chicken");
@@ -16,16 +14,13 @@ const App = () => {
   const getRecipes = async () => {
     try {
       const response = await fetch(
-        `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
+        `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
       );
-      const data = await response.json();
-      console.log(data); // Log the fetched data
-      if (data.hits) {
-        setRecipes(data.hits);
-        console.log(data.hits); // Log the hits to ensure they are being set correctly
-      } else {
-        console.error("No hits found in the response");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
+      const data = await response.json();
+      setRecipes(data.meals || []);
     } catch (error) {
       console.error("Error fetching the recipes:", error);
     }
@@ -55,22 +50,19 @@ const App = () => {
         </button>
       </form>
       <div className="recipes">
-        {recipes.length > 0 ? (
-          recipes.map((recipe, index) => (
-            <Recipe
-              key={index} // Ensure the key is unique
-              title={recipe.recipe.label}
-              calories={recipe.recipe.calories}
-              image={recipe.recipe.image}
-              ingredients={recipe.recipe.ingredients}
-            />
-          ))
-        ) : (
-          <p>No recipes found</p>
-        )}
+        {recipes.map((recipe) => (
+          <Recipe
+            key={recipe.idMeal}
+            title={recipe.strMeal}
+            image={recipe.strMealThumb}
+            ingredients={Object.keys(recipe)
+              .filter((key) => key.startsWith("strIngredient") && recipe[key])
+              .map((key) => ({ strIngredient: recipe[key] }))}
+          />
+        ))}
       </div>
     </div>
   );
-};
+}
 
 export default App;
