@@ -37,26 +37,22 @@ const BmiCalculator = () => {
     <div className="container">
       <h1>BMI Calculator</h1>
       <div className="input-group">
-        <label>
-          Weight (kg):
-          <input
-            type="number"
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            placeholder="Enter your weight"
-          />
-        </label>
+        <label>Weight (kg):</label>
+        <input
+          type="number"
+          value={weight}
+          onChange={(e) => setWeight(e.target.value)}
+          placeholder="Enter your weight"
+        />
       </div>
       <div className="input-group">
-        <label>
-          Height (cm):
-          <input
-            type="number"
-            value={height}
-            onChange={(e) => setHeight(e.target.value)}
-            placeholder="Enter your height"
-          />
-        </label>
+        <label>Height (cm):</label>
+        <input
+          type="number"
+          value={height}
+          onChange={(e) => setHeight(e.target.value)}
+          placeholder="Enter your height"
+        />
       </div>
       <button onClick={calculateBMI}>Calculate</button>
       {bmi && (
