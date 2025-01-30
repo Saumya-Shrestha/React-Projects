@@ -1,4 +1,3 @@
-// App.js File
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import Container from "react-bootstrap/Container";
@@ -8,6 +7,7 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import ListGroup from "react-bootstrap/ListGroup";
+import { Trash, Pencil } from "react-bootstrap-icons"; // Import icons
 
 class App extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ class App extends Component {
     });
   }
 
-  // Add item if user input in not empty
+  // Add item if user input is not empty
   addItem() {
     if (this.state.userInput !== "") {
       const userInput = {
@@ -50,7 +50,7 @@ class App extends Component {
     }
   }
 
-  // Function to delete item from list use id to delete
+  // Function to delete item from list using id
   deleteItem(key) {
     const list = [...this.state.list];
 
@@ -77,7 +77,7 @@ class App extends Component {
 
   render() {
     return (
-      <Container>
+      <Container className="mt-5">
         <Row
           style={{
             display: "flex",
@@ -85,68 +85,75 @@ class App extends Component {
             alignItems: "center",
             fontSize: "3rem",
             fontWeight: "bolder",
+            color: "#4A90E2", // Modern blue color
           }}
         >
           TODO LIST
         </Row>
 
-        <hr />
-        <Row>
-          <Col md={{ span: 5, offset: 4 }}>
+        <hr style={{ borderTop: "2px solid #4A90E2" }} />
+        <Row className="mt-4">
+          <Col md={{ span: 6, offset: 3 }}>
             <InputGroup className="mb-3">
               <FormControl
-                placeholder="add item . . . "
+                placeholder="Add item . . . "
                 size="lg"
                 value={this.state.userInput}
                 onChange={(item) => this.updateInput(item.target.value)}
                 aria-label="add something"
                 aria-describedby="basic-addon2"
+                style={{ borderRadius: "10px 0 0 10px" }}
               />
-              <InputGroup>
-                <Button
-                  variant="dark"
-                  className="mt-2"
-                  onClick={() => this.addItem()}
-                >
-                  ADD
-                </Button>
-              </InputGroup>
+              <Button
+                variant="primary"
+                onClick={() => this.addItem()}
+                style={{ borderRadius: "0 10px 10px 0" }}
+              >
+                ADD
+              </Button>
             </InputGroup>
           </Col>
         </Row>
         <Row>
-          <Col md={{ span: 5, offset: 4 }}>
+          <Col md={{ span: 6, offset: 3 }}>
             <ListGroup>
               {/* map over and print items */}
               {this.state.list.map((item, index) => {
                 return (
-                  <div key={index}>
-                    <ListGroup.Item
-                      variant="dark"
-                      action
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                      }}
-                    >
+                  <ListGroup.Item
+                    key={item.id}
+                    action
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: "10px",
+                      borderRadius: "10px",
+                      boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                      padding: "10px 15px", // Add padding for better spacing
+                    }}
+                    className="hover-shadow"
+                  >
+                    <span style={{ flex: 1, marginRight: "10px" }}>
                       {item.value}
-                      <span>
-                        <Button
-                          style={{ marginRight: "10px" }}
-                          variant="light"
-                          onClick={() => this.deleteItem(item.id)}
-                        >
-                          Delete
-                        </Button>
-                        <Button
-                          variant="light"
-                          onClick={() => this.editItem(index)}
-                        >
-                          Edit
-                        </Button>
-                      </span>
-                    </ListGroup.Item>
-                  </div>
+                    </span>
+                    <span>
+                      <Button
+                        variant="outline-danger"
+                        onClick={() => this.deleteItem(item.id)}
+                        style={{ marginRight: "10px", borderRadius: "5px" }}
+                      >
+                        <Trash />
+                      </Button>
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => this.editItem(index)}
+                        style={{ borderRadius: "5px" }}
+                      >
+                        <Pencil />
+                      </Button>
+                    </span>
+                  </ListGroup.Item>
                 );
               })}
             </ListGroup>
