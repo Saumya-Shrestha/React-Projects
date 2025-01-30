@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import ListGroup from "react-bootstrap/ListGroup";
-import { Trash, Pencil } from "react-bootstrap-icons"; // Import icons
+import { Trash, Pencil } from "react-bootstrap-icons";
 
 class App extends Component {
   constructor(props) {
@@ -85,7 +85,7 @@ class App extends Component {
             alignItems: "center",
             fontSize: "3rem",
             fontWeight: "bolder",
-            color: "#4A90E2", // Modern blue color
+            color: "#4A90E2",
           }}
         >
           TODO LIST
@@ -130,7 +130,7 @@ class App extends Component {
                       marginBottom: "10px",
                       borderRadius: "10px",
                       boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                      padding: "10px 15px", // Add padding for better spacing
+                      padding: "10px 15px",
                     }}
                     className="hover-shadow"
                   >
