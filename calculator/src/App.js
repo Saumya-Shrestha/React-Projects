@@ -24,7 +24,7 @@ function CalculatorApp() {
 
   return (
     <div className="calculator-app">
-      <h1>React Calculator</h1>
+      <h1>Calculator</h1>
       <div className="screen">
         <div className="input">{input || "0"}</div>
         <div className="result">{result}</div>
